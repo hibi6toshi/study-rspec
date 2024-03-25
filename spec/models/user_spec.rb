@@ -13,7 +13,15 @@ RSpec.describe User, type: :model do
   end
 
   # 名がなければ無効な状態であること
-  it "is invalid without a first name"
+  it "is invalid without a first name" do
+    user = User.new(first_name: nil)
+    user.valid?
+    expect(user.errors[:first_name]).to include("can't be blank")
+
+    # テストが期待通りかを確かめるためには、以下のようにto を to_not に変換する
+    # expect(user.errors[:first_name]).to_not include("can't be blank")
+    # もしくは、モデルのvalidationしている箇所をコメントアウトする。
+  end
 
   # 姓がなけれな無効な状態であること
   it "is invalid without a last name"
