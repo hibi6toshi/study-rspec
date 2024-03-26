@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Note, type: :model do
+
+  before do
+    # このファイルの全テストで使用するテストデータをセットアップする
+  end
+
   # 検索文字列に一致するメモを返すこと
   it 'returns notes that much the search term' do
     user = User.create(
@@ -66,6 +71,11 @@ RSpec.describe Note, type: :model do
 
   # 文字列に一致するメッセージを検索する: describe にはクラスやシステムの機能に関するアウトラインを記述
   describe 'search message for a term' do
+
+    before do # before :each と同じで、各テストの前に実行される
+      # 検索機能の全テストに関連する追加のテストデータをセットアップする
+    end
+
 
     # 一致するデータが見つかるとき: contextには特定の状態に関するアウトラインを記述
     context 'when a match is found' do
