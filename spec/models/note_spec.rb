@@ -64,8 +64,17 @@ RSpec.describe Note, type: :model do
     expect(Note.search('message')).to be_empty
   end
 
-  # 文字列に一致するメッセージを検索する
+  # 文字列に一致するメッセージを検索する: describe にはクラスやシステムの機能に関するアウトラインを記述
   describe 'search message for a term' do
-    # 検索用の example が並ぶ
+
+    # 一致するデータが見つかるとき: contextには特定の状態に関するアウトラインを記述
+    context 'when a match is found' do
+      # 一致する場合の example　が並ぶ
+    end
+
+    # 一致するデータが一件も見つからないとき
+    context 'when no match id found' do
+      # 一致しない場合の example が並ぶ
+    end
   end
 end
