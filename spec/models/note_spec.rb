@@ -34,7 +34,7 @@ RSpec.describe Note, type: :model do
     }
 
     let(:note2) {
-      Factorybot.create(
+      FactoryBot.create(
         :note,
         project: project,
         user: user,
@@ -62,7 +62,10 @@ RSpec.describe Note, type: :model do
     # 一致するデータが一件も見つからないとき
     context 'when no match id found' do
       it 'returns an empty collection when no results are found' do
-        # 明示的に note1, note2, note3 を呼び出さないと、データが作られない。なので、　eq 3 は0件しか取得できず失敗する。
+        # 明示的に　note1 〜 note3　を明示的に参照する。
+        note1
+        note2
+        note3
         expect(Note.search('message')).to be_empty
         expect(Note.count).to eq 3
       end
