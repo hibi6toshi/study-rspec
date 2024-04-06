@@ -17,10 +17,14 @@ RSpec.describe "Projects", type: :system do
       fill_in 'Description', with: 'Trying out Capybara'
       click_button 'Create Project'
 
-      expect(page).to have_content 'Project was successfully created'
-      expect(page).to have_content 'Test Project'
-      expect(page).to have_content "Owner: #{user.name}"
-  }.to change(user.projects, :count).by(1)
+      # 失敗するエクスペクテーション の集約をしている。
+      # 失敗全体を集約しているわけではない。（sign_in userを省略すると Capybara の 'Unable to find link "New Project"' が起こるが、expectの失敗ではないため中断される）
+      aggregate_failures do
+        expect(page).to have_content 'Project was successfully created'
+        expect(page).to have_content 'Test Project'
+        expect(page).to have_content "Owner: #{user.name}"
+      end
+    }.to change(user.projects, :count).by(1)
   end
 
   scenario 'guest adds a project' do
