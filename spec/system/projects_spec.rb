@@ -5,7 +5,11 @@ RSpec.describe "Projects", type: :system do
   scenario 'user creates a new project' do
     user = FactoryBot.create(:user)
 
-    sign_in_as user
+    sign_in user
+
+    # DeviseのIntegrationHelperではセッションの作成はしてくれるが、TOPページへ遷移はしてくれない。
+    # 明示的に遷移する。
+    visit root_path
 
     expect {
       click_link 'New Project'
