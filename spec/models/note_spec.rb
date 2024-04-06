@@ -24,7 +24,8 @@ RSpec.describe Note, type: :model do
   # 文字列に一致するメッセージを検索する: describe にはクラスやシステムの機能に関するアウトラインを記述
   describe 'search message for a term' do
 
-    let(:note1) {
+    # let! はブロックを即座に実行する。
+    let!(:note1) {
       FactoryBot.create(
         :note,
         project: project,
@@ -33,7 +34,7 @@ RSpec.describe Note, type: :model do
       )
     }
 
-    let(:note2) {
+    let!(:note2) {
       FactoryBot.create(
         :note,
         project: project,
@@ -42,7 +43,7 @@ RSpec.describe Note, type: :model do
       )
     }
 
-    let(:note3) {
+    let!(:note3) {
       FactoryBot.create(
         :note,
         project: project,
@@ -63,9 +64,6 @@ RSpec.describe Note, type: :model do
     context 'when no match id found' do
       it 'returns an empty collection when no results are found' do
         # 明示的に　note1 〜 note3　を明示的に参照する。
-        note1
-        note2
-        note3
         expect(Note.search('message')).to be_empty
         expect(Note.count).to eq 3
       end
