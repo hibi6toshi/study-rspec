@@ -62,7 +62,9 @@ RSpec.describe Note, type: :model do
     # 一致するデータが一件も見つからないとき
     context 'when no match id found' do
       it 'returns an empty collection when no results are found' do
+        # 明示的に note1, note2, note3 を呼び出さないと、データが作られない。なので、　eq 3 は0件しか取得できず失敗する。
         expect(Note.search('message')).to be_empty
+        expect(Note.count).to eq 3
       end
     end
   end
