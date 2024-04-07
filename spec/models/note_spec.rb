@@ -69,4 +69,19 @@ RSpec.describe Note, type: :model do
       end
     end
   end
+
+  # 名前の取得をメモを作成したユーザーに委譲すること
+  it 'delegates name to the user who created it' do
+    # instance_doubleは検証機能付きのテストダブル(verified double)。　インスタンスメソッドとして、nameを持っているかを検証してくれる。
+    user = instance_double('User', name: 'Faker User')
+    note = Note.new
+    allow(note).to receive(:user).and_return(user)
+    expect(note.user_name).to eq 'Faker User'
+
+    # このコードでは モックの ユーザーオブジェクトと、テスト対象のメモに設定したスタブメソッドを使っています。
+    # ここでは永続化したユーザーオブジェクトをテストダブルに置き換えています。テストダブルは本物のユーザーではありません。
+
+    # テストダブルはfirst_nameに反応する方法を知らないので、以下のエクスペクテーションは失敗する。
+    # expect(note.user.first_name).to eq 'Fake'
+  end
 end
