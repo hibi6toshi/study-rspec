@@ -72,7 +72,8 @@ RSpec.describe Note, type: :model do
 
   # 名前の取得をメモを作成したユーザーに委譲すること
   it 'delegates name to the user who created it' do
-    user = double('user', name: 'Faker User')
+    # instance_doubleは検証機能付きのテストダブル(verified double)。　インスタンスメソッドとして、nameを持っているかを検証してくれる。
+    user = instance_double('User', name: 'Faker User')
     note = Note.new
     allow(note).to receive(:user).and_return(user)
     expect(note.user_name).to eq 'Faker User'
