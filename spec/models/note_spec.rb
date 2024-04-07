@@ -69,4 +69,15 @@ RSpec.describe Note, type: :model do
       end
     end
   end
+
+  # 名前の取得をメモを作成したユーザーに委譲すること
+  it 'delegates name to the user who created it' do
+    user = FactoryBot.create(:user, first_name: 'Fake', last_name: 'User')
+    note = Note.new(user: user)
+    expect(note.user_name).to eq 'Fake User'
+
+    # このコードでは User オブジェクトを永続化する必要があります。
+    # これはテストで使う first_name と last_name というユーザーの属性にアクセスするためです。この処理に必要な時間はほんのわずかです。
+    # ですが、セットアップのシナリオが複雑になったりすると、わずかな時間もどんどん積み重なって無視できなくなるかもしれません。
+  end
 end
